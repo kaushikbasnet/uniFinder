@@ -1,0 +1,3100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RACE | Study Abroad Finder</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #002147;
+        --red: #ed1c24;
+        --off-white: #fcfbf7;
+        --soft-gray: #f1f1f1;
+        --glass: rgba(255, 255, 255, 0.85);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--off-white);
+        color: var(--navy);
+        -webkit-font-smoothing: antialiased;
+      }
+      .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 60px 8% 40px 8%;
+        min-height: 85vh;
+        gap: 60px;
+        background: radial-gradient(
+          circle at top right,
+          rgba(237, 28, 36, 0.03),
+          transparent 40%
+        );
+      }
+      .hero-content {
+        flex: 1.2;
+      }
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.5rem, 4vw, 4rem);
+        line-height: 1.1;
+        font-weight: 900;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+      }
+      h1 em {
+        font-style: italic;
+        color: var(--red);
+        font-weight: 700;
+      }
+      .hero-p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.8;
+        max-width: 500px;
+        margin-bottom: 40px;
+        font-weight: 300;
+      }
+      .search-container {
+        flex: 0.8;
+      }
+      .search-card {
+        background: var(--glass);
+        backdrop-filter: blur(15px);
+        padding: 40px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 30px 100px rgba(0, 33, 71, 0.08);
+      }
+      .input-group {
+        margin-bottom: 22px;
+      }
+      .input-group label {
+        display: block;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+        opacity: 0.5;
+      }
+      .input-group select {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+        font-size: 0.95rem;
+        color: var(--navy);
+        cursor: pointer;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+      .input-group select:focus {
+        border-bottom-color: var(--red);
+      }
+      .cta-btn {
+        width: 100%;
+        padding: 18px;
+        background: var(--navy);
+        color: #fff;
+        border: none;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+      }
+      .cta-btn:hover {
+        background: var(--red);
+        transform: translateY(-2px);
+      }
+      #results-section {
+        padding: 60px 8%;
+        display: none;
+        background: #fff;
+        border-top: 1px solid var(--soft-gray);
+      }
+      .result-summary {
+        font-size: 0.82rem;
+        color: #888;
+        margin-top: 8px;
+        margin-bottom: 40px;
+      }
+
+      /* University section block */
+      .uni-section {
+        margin-bottom: 60px;
+      }
+      .uni-section-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid var(--navy);
+        margin-bottom: 24px;
+      }
+      .uni-section-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 900;
+        line-height: 1.1;
+      }
+      .uni-section-meta {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 4px;
+      }
+      .uni-section-badge {
+        background: var(--navy);
+        color: #fff;
+        font-size: 0.62rem;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        white-space: nowrap;
+      }
+
+      /* Field sub-heading inside a uni section */
+      .field-heading {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.68rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #fff;
+        background: var(--red);
+        padding: 6px 16px;
+        border-radius: 6px;
+        margin: 32px 0 14px 0;
+      }
+      .field-heading:first-child {
+        margin-top: 0;
+      }
+      .field-heading::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background: #fff;
+        border-radius: 50%;
+        opacity: 0.7;
+      }
+
+      /* Program cards grid */
+      .prog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      }
+
+      /* Individual program card */
+      .prog-card {
+        background: var(--off-white);
+        border-radius: 18px;
+        padding: 22px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          box-shadow 0.25s,
+          transform 0.25s;
+      }
+      .prog-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 33, 71, 0.1);
+        transform: translateY(-2px);
+      }
+      .prog-intake-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: var(--red);
+        color: #fff;
+        font-size: 0.58rem;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-bottom-left-radius: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+      .prog-name {
+        font-size: 0.88rem;
+        font-weight: 600;
+        line-height: 1.45;
+        color: var(--navy);
+        padding-right: 70px;
+      }
+      .prog-meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 2px;
+      }
+      .pill {
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 3px 9px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-block;
+      }
+      .pill-blue {
+        background: #e6f1fb;
+        color: #185fa5;
+      }
+      .pill-green {
+        background: #eaf3de;
+        color: #3b6d11;
+      }
+      .pill-gray {
+        background: #f1efe8;
+        color: #5f5e5a;
+      }
+      .pill-red {
+        background: #fcebeb;
+        color: #a32d2d;
+      }
+      .apply-btn {
+        background: none;
+        border: none;
+        font-weight: 800;
+        font-size: 0.65rem;
+        color: var(--red);
+        cursor: pointer;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 0;
+        margin-top: auto;
+        align-self: flex-start;
+      }
+      @media (max-width: 1024px) {
+        .hero {
+          flex-direction: column;
+          text-align: center;
+        }
+        .hero-p {
+          margin: 0 auto 35px auto;
+        }
+      }
+      @media (max-width: 600px) {
+        .prog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Your Global<br /><em>Future</em> Is Open.</h1>
+        <p class="hero-p">
+          RACE Education provides a curated roadmap to international success.
+          Find the right program and intake for your journey below.
+        </p>
+        <div style="display: flex; gap: 30px; flex-wrap: wrap">
+          <div style="border-left: 3px solid var(--red); padding-left: 15px">
+            <div style="font-weight: 800; font-size: 1.3rem">Aug / Sept</div>
+            <div
+              style="
+                font-size: 0.65rem;
+                opacity: 0.6;
+                font-weight: 700;
+                text-transform: uppercase;
+              "
+            >
+              Major Intake
+            </div>
+          </div>
+          <div style="border-left: 3px solid var(--navy); padding-left: 15px">
+            <div style="font-weight: 800; font-size: 1.3rem">Feb / Mar</div>
+            <div
+              style="
+                font-size: 0.65rem;
+                opacity: 0.6;
+                font-weight: 700;
+                text-transform: uppercase;
+              "
+            >
+              Minor Intake
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-container">
+        <div class="search-card">
+          <div class="input-group">
+            <label>Country</label>
+            <select id="country" onchange="syncFilters()">
+              <option value="">— All Countries —</option>
+              <option value="Australia">Australia</option>
+              <option value="Austria">Austria</option>
+              <option value="Canada">Canada</option>
+              <option value="UK">United Kingdom</option>
+              <option value="USA">United States</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Study Level</label>
+            <select id="level" onchange="syncFilters()">
+              <option value="">— All Levels —</option>
+              <option value="Undergraduate">Undergraduate</option>
+              <option value="Postgraduate">Postgraduate</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Field of Study</label>
+            <select id="field">
+              <option value="">— All Fields —</option>
+            </select>
+          </div>
+          <button class="cta-btn" onclick="runSearch()">
+            Find Universities &amp; Intakes
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="results-section">
+      <h3
+        style="
+          font-family: &quot;Playfair Display&quot;, serif;
+          font-size: 2rem;
+        "
+      >
+        Available Programs
+      </h3>
+      <div class="result-summary" id="result-summary"></div>
+      <div id="results-body"></div>
+    </section>
+
+    <script>
+      const DB = [
+        // ══ AUSTRALIA ══
+        {
+          uni: "University of New South Wales",
+          country: "Australia",
+          level: "Undergraduate",
+          field: "IT & Computer Science",
+          program: "IT & Computer Science",
+          intake: "Feb / June 2026",
+          tuition: null,
+          duration: null,
+          english: null,
+        },
+        {
+          uni: "Monash University",
+          country: "Australia",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "Business Management",
+          intake: "Feb / July 2026",
+          tuition: null,
+          duration: null,
+          english: null,
+        },
+
+        // ══ UK ══
+        {
+          uni: "Coventry University",
+          country: "UK",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "Business Management",
+          intake: "Jan / May / Sept 2026",
+          tuition: null,
+          duration: null,
+          english: null,
+        },
+        {
+          uni: "University of Hertfordshire",
+          country: "UK",
+          level: "Undergraduate",
+          field: "IT & Computer Science",
+          program: "IT & Computer Science",
+          intake: "Sept 2026",
+          tuition: null,
+          duration: null,
+          english: null,
+        },
+
+        // ══ USA — Arizona State ══
+        {
+          uni: "Arizona State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "IT & Computer Science",
+          program: "IT & Computer Science",
+          intake: "Aug 2026 / Jan 2027",
+          tuition: null,
+          duration: null,
+          english: null,
+        },
+
+        // ══ CANADA ══
+        {
+          uni: "York University",
+          country: "Canada",
+          level: "Postgraduate",
+          field: "Health Sciences",
+          program: "Health & Nursing",
+          intake: "Sept 2026",
+          tuition: null,
+          duration: null,
+          english: null,
+        },
+
+        // ══════════════════════════════════════════════
+        // ARKANSAS STATE UNIVERSITY — UNDERGRADUATE
+        // ══════════════════════════════════════════════
+
+        // Arts & Humanities
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BS Agriculture – Agricultural Communications",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,500",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BS Agriculture – Animal Science – Production & Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Art – Art History",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BFA Art – Art Education",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BFA Art – Studio Art",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Communication Studies",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Communication Studies – Interpersonal Communication",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Communication Studies – Organizational Communication",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Communication Studies – Public Communication",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BS Creative Media Production – Corporate Media",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BS Creative Media Production – Graphic Communication",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BS Creative Media Production – Sports Media",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BS Creative Media Production – Media Ministry",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA English",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BSEd English",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BGS General Studies",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BFA Graphic Design",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA History",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BMEd Instrumental Music",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BS Interdisciplinary Studies",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BM Music – Composition",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BM Music – Instrumental Performance",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BM Music – Keyboard Performance",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BM Music – Voice Performance",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BSEd Social Science",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Sociology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BS Strategic Communication",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Theatre",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Theatre – Acting",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Theatre – Design Technology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA Theatre – Musical Theatre",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BMEd Vocal Music",
+          intake: "Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BSEd World Languages & Culture – French",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BSEd World Languages & Culture – Spanish",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA World Languages & Cultures – French",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA World Languages & Cultures – Global Studies",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BA World Languages & Cultures – Spanish",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BSEd World Languages & Cultures – French",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Arts & Humanities",
+          program: "BSEd World Languages & Cultures – Spanish",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+
+        // Business & Management
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Marketing – Logistics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,500",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Marketing – Marketing Analytics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,500",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS International Business – Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$15,930",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS International Business – Marketing",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$15,930",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Accounting",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Agriculture – Agricultural Business",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program:
+            "BS Agriculture – Agricultural Business – Agricultural Economics & Finance",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program:
+            "BS Agriculture – Agricultural Business – Agricultural Marketing & Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Business Administration",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program:
+            "BS Business Administration – Sustainable Business Practices",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Business Economics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BA Economics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BA Economics – Pre-Law",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Finance – Banking",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Finance – Financial Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Global Supply Chain Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS International Business",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Management – Hospitality Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Management – Human Resource Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Marketing",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Marketing – Sales",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BAS Organizational Supervision",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Sport Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Hospitality & Event Tourism Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Business & Management",
+          program: "BS Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+
+        // Engineering & Technology
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Radiologic Science – Medical Imaging Informatics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,950",
+          duration: "44–49 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Engineering Management Systems",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,400",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Agriculture – GIS & Precision Agriculture",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,400",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program:
+            "BS Agriculture – Agricultural Studies – Agricultural Education",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program:
+            "BS Agriculture – Agricultural Business – Agricultural Marketing & Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Agriculture – Animal Science – Equine Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Agriculture – Animal Science – Pre-Veterinary",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Civil Engineering",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Electrical Engineering",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Engineering Technology – Manufacturing & CAD",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Engineering Technology – Computer Systems",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Engineering Technology – Technical Studies",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Mechanical Engineering",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Agriculture – Plant & Soil Science – Agronomy",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program:
+            "BS Radiologic Science – Cardiovascular-Interventional Technology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Radiologic Science – Diagnostic Medical Sonography",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Radiologic Science – Magnetic Resonance Imaging",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Radiologic Science – Mammography",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Radiologic Science – Radiation Therapy",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Construction Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Digital Technology & Design – Game Design",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program:
+            "BS Digital Technology & Design – Mobile Application Development",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Engineering & Technology",
+          program: "BS Information Systems & Business Analytics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+
+        // Health Sciences
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program: "BS Public Health",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,400",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program: "BS Clinical Laboratory Sciences (pre-CLS)",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 6.5 / TOEFL 83 / PTE 56",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program: "BS Health Studies – Non-Professional Track",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 6.5 / TOEFL 83 / PTE 56",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program: "BS Health Studies – Professional Track",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program:
+            "BS Radiologic Science – Cardiovascular-Interventional Technology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program: "BS Radiologic Science – Diagnostic Medical Sonography",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program: "BS Radiologic Science – Mammography",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program: "BS Radiologic Science – Radiation Therapy",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Health Sciences",
+          program:
+            "BS Data Science & Data Analytics – Data Analytics – Healthcare",
+          intake: "Contact RACE",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+
+        // Law, Politics & Social Sciences
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "BA Criminology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "BA Economics – Pre-Law",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "BSEd Elementary Education",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "BSEd Mid-level Education",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "BSEd Physical Education",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "Bachelor of Social Work",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "BSEd World Languages & Culture – French",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "BS Disaster Preparedness & Emergency Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "BS Occupational & Environmental Safety & Health",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+
+        // Sciences
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BA Chemistry",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,400",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Engineering Management Systems",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,400",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Agriculture – GIS & Precision Agriculture",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,400",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Agriculture – Animal Science – Equine Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Agriculture – Animal Science – Pre-Veterinary",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Agriculture – Animal Science – Production & Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Biological Sciences – Pre-Professional Studies",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Biotechnology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Chemistry",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Chemistry – Pre-Professional Studies",
+          intake: "Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BA Chemistry – Pre-Pharmacy",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Communication Disorders",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BA Computer Science",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Computer Science",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Environmental Science",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Exercise Science",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BSEd General Science – Chemistry",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BSEd General Science – Physics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Mathematics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BSEd Mathematics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BA Philosophy",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Physics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BA Political Science",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Psychology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Wildlife, Fisheries & Conservation – Fisheries",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Wildlife, Fisheries & Conservation – Wildlife",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Actuarial Science",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Biochemistry",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program:
+            "BS Biological Sciences – Evolution, Ecology & Organismal Biology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BS Data Science & Analytics – Data Analytics – Business",
+          intake: "Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Undergraduate",
+          field: "Sciences",
+          program: "BA World Languages & Cultures – Global Studies",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$17,610",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+
+        // ══════════════════════════════════════════════
+        // ARKANSAS STATE UNIVERSITY — MASTERS
+        // ══════════════════════════════════════════════
+
+        // Arts
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MMEd Music Education (M.M.E)",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$12,564",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MA History",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$12,564",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MA Communication Studies",
+          intake: "Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MSEd English",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MA History – Global History",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MA History – Public History",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MS Mass Communications – Journalism",
+          intake: "Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MMEd Music Education – Choral",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MMEd Music Education – Instrumental",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MM Music Performance – Collaborative Piano",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MM Music Performance – Composition",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MM Music Performance – Conducting",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MM Music Performance – Instrumental Performance",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MM Music Performance – Piano Performance & Pedagogy",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MM Music Performance – Vocal Performance",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MS Mass Communications – Radio Television",
+          intake: "Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MA Sociology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MA English",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$10,845",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+
+        // Business
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MS Engineering Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$11,520",
+          duration: "12 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MBA – Financial Planning & Analysis (FP&A)",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$12,564",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MAcc – Accounting with Data Analytics",
+          intake: "Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MBA – Business Administration – General",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MBA – Business Administration – Marketing",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MBA – Business Administration – Supply Chain Management",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MPA – Public Administration",
+          intake: "May 2027 / Aug 2027",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MS Sport Administration",
+          intake: "Jan 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program:
+            "MS Agriculture – Agricultural Business & Economics – Non-Thesis",
+          intake: "Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MBA – Business Administration – Business Analytics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MS Applied Digital Technology – Business Analytics",
+          intake: "May 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+
+        // Engineering
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MS Applied Digital Technology",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$12,564",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MS Computer Science – Cyber Security",
+          intake: "Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MS Agriculture – Animal Science – Non-Thesis",
+          intake: "Aug 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MS Agriculture – Digital Agriculture – Non-Thesis",
+          intake: "Aug 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MS Agriculture – Plant & Soil Science – Non-Thesis",
+          intake: "Aug 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MSME – Mechanical Engineering",
+          intake: "Jan 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MSEE – Electrical Engineering",
+          intake: "Jan 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MSCE – Civil Engineering",
+          intake: "Jan 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MS Applied Digital Technology – AI & Machine Learning",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MS Applied Digital Technology – Cloud & Cybersecurity",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MS Computer Science – High Performance Computing",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+
+        // Law / Social
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "MSEd English",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "MS Physical Education",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "MS Social Work",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+
+        // Sciences
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program:
+            "Specialist in Education – Psychology & Counseling – Clinical Mental Health Counseling",
+          intake: "Aug 2026",
+          tuition: "$11,970",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program:
+            "Specialist in Education – Psychology & Counseling – School Psychology",
+          intake: "Aug 2026",
+          tuition: "$11,970",
+          duration: "48 months",
+          english: "IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MAcc – Accounting with Data Analytics",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MA Biological Sciences",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Chemistry",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Computer Science – Cyber Security",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Computer Science – Data Science",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Environmental Science",
+          intake: "Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Exercise Science",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Mathematics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Molecular Biosciences",
+          intake: "Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Psychological Science",
+          intake: "Aug 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Biology",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Statistics",
+          intake: "May 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Agriculture – Animal Science – Non-Thesis",
+          intake: "Aug 2027 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Computer Science",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+        {
+          uni: "Arkansas State University",
+          country: "USA",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MS Computer Science – High Performance Computing",
+          intake: "Jan 2026 / Aug 2026",
+          tuition: "$13,020",
+          duration: "24 months",
+          english: "IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120",
+        },
+
+        // ══════════════════════════════════════════════
+        // UNIVERSITÄT INNSBRUCK — MASTERS
+        // ══════════════════════════════════════════════
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MSc Biomedical Life Science",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MSc Environment Management of Mountain Areas",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MSc Software Engineering",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MSc Mathematics",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Engineering & Technology",
+          program: "MSc Computer Science",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MSc Physics",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MSc Strategic Management & Innovation",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MSc Organization Studies",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MSc International Management",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MSc Information Systems",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MSc Marketing & Branding",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MSc Banking & Finance",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MA Philosophy of Religion",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MSc Chemistry",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Health Sciences",
+          program: "MSc Pharmaceutical Sciences",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MSc Materials Sciences & Nanosciences",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Business & Management",
+          program: "MSc Experiment & Empirical Economics",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Law, Politics & Social Sciences",
+          program:
+            "MSc Digital Society, Social Innovation & Global Citizenship",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MSc Environmental Meteorology & Climate",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Sciences",
+          program: "MSc Atmosphere Sciences",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "MA Peace & Conflict Studies",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Law, Politics & Social Sciences",
+          program: "MA Media Society & Communication",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+        {
+          uni: "Universität Innsbruck",
+          country: "Austria",
+          level: "Postgraduate",
+          field: "Arts & Humanities",
+          program: "MA English & American Studies",
+          intake: "Contact RACE",
+          tuition: "Contact RACE",
+          duration: "24 months",
+          english: "IELTS 5.5 / TOEFL 72 / PTE 59",
+        },
+      ];
+
+      // All possible fields
+      const ALL_FIELDS = [
+        "Arts & Humanities",
+        "Business & Management",
+        "Engineering & Technology",
+        "Health Sciences",
+        "IT & Computer Science",
+        "Law, Politics & Social Sciences",
+        "Sciences",
+      ];
+
+      function syncFilters() {
+        const country = document.getElementById("country").value;
+        const level = document.getElementById("level").value;
+        const fieldEl = document.getElementById("field");
+        const prev = fieldEl.value;
+        const available = new Set();
+        DB.forEach((r) => {
+          if (
+            (!country || r.country === country) &&
+            (!level || r.level === level)
+          )
+            available.add(r.field);
+        });
+        fieldEl.innerHTML = '<option value="">— All Fields —</option>';
+        ALL_FIELDS.forEach((f) => {
+          if (available.has(f)) {
+            const o = document.createElement("option");
+            o.value = f;
+            o.textContent = f;
+            if (f === prev) o.selected = true;
+            fieldEl.appendChild(o);
+          }
+        });
+      }
+
+      function runSearch() {
+        const country = document.getElementById("country").value;
+        const level = document.getElementById("level").value;
+        const field = document.getElementById("field").value;
+
+        const matches = DB.filter(
+          (r) =>
+            (!country || r.country === country) &&
+            (!level || r.level === level) &&
+            (!field || r.field === field),
+        );
+
+        const section = document.getElementById("results-section");
+        const body = document.getElementById("results-body");
+        const summary = document.getElementById("result-summary");
+
+        section.style.display = "block";
+
+        if (matches.length === 0) {
+          summary.textContent = "0 programs found";
+          body.innerHTML =
+            '<p style="opacity:0.5;text-align:center;padding:50px;">No results found. Please contact RACE counselors for this selection.</p>';
+          section.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+
+        // Step 1: group programs → uni → field → [programs]
+        // Order: preserve insertion order of universities
+        const uniOrder = [];
+        const uniMap = {}; // key → { uni, country, level, byField: { fieldName: [rows] } }
+
+        matches.forEach((r) => {
+          const key = r.uni + "||" + r.country + "||" + r.level;
+          if (!uniMap[key]) {
+            uniMap[key] = {
+              uni: r.uni,
+              country: r.country,
+              level: r.level,
+              byField: {},
+            };
+            uniOrder.push(key);
+          }
+          if (!uniMap[key].byField[r.field]) uniMap[key].byField[r.field] = [];
+          uniMap[key].byField[r.field].push(r);
+        });
+
+        summary.textContent =
+          uniOrder.length +
+          " institution" +
+          (uniOrder.length !== 1 ? "s" : "") +
+          " · " +
+          matches.length +
+          " program" +
+          (matches.length !== 1 ? "s" : "") +
+          " found";
+
+        // Step 2: render one section per university
+        body.innerHTML = uniOrder
+          .map((key) => {
+            const e = uniMap[key];
+            const totalCount = matches.filter(
+              (r) =>
+                r.uni === e.uni &&
+                r.country === e.country &&
+                r.level === e.level,
+            ).length;
+            const fields = Object.keys(e.byField);
+            const showFieldHeadings = fields.length > 1 || !field; // show field headings when multiple fields
+
+            // Collect all intakes for this uni (unique)
+            const allIntakes = [
+              ...new Set(
+                Object.values(e.byField)
+                  .flat()
+                  .map((r) => r.intake)
+                  .filter(Boolean),
+              ),
+            ];
+            const intakeLabel =
+              allIntakes.length === 1 ? allIntakes[0] : "Multiple intakes";
+
+            // Build program cards, optionally grouped by field
+            let cardsHtml = "";
+            fields.forEach((f) => {
+              if (showFieldHeadings) {
+                cardsHtml += `<div class="field-heading">${f}</div>`;
+              }
+              cardsHtml += '<div class="prog-grid">';
+              e.byField[f].forEach((r) => {
+                const firstIntake = r.intake
+                  ? r.intake.split("/")[0].trim()
+                  : "TBC";
+                const pills = [
+                  r.tuition
+                    ? `<span class="pill pill-blue">${r.tuition}</span>`
+                    : "",
+                  r.duration
+                    ? `<span class="pill pill-gray">${r.duration}</span>`
+                    : "",
+                  r.english
+                    ? `<span class="pill pill-green">${r.english}</span>`
+                    : "",
+                ]
+                  .filter(Boolean)
+                  .join("");
+
+                cardsHtml += `
+          <div class="prog-card">
+            <div class="prog-intake-badge">${firstIntake}</div>
+            <div class="prog-name">${r.program}</div>
+            ${pills ? `<div class="prog-meta-row">${pills}</div>` : ""}
+            <button class="apply-btn">Apply ${firstIntake} &rarr;</button>
+          </div>`;
+              });
+              cardsHtml += "</div>";
+            });
+
+            return `
+      <div class="uni-section">
+        <div class="uni-section-header">
+          <div>
+            <div class="uni-section-name">${e.uni}</div>
+            <div class="uni-section-meta">${e.country} &nbsp;·&nbsp; ${e.level} &nbsp;·&nbsp; ${totalCount} program${totalCount !== 1 ? "s" : ""}</div>
+          </div>
+          <div class="uni-section-badge">${intakeLabel}</div>
+        </div>
+        ${cardsHtml}
+      </div>`;
+          })
+          .join("");
+
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+
+      syncFilters();
+    </script>
+  </body>
+</html>
