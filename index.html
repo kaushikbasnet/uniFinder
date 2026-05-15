@@ -10,12 +10,17 @@
   --primary:#116e94;
   --primary-dark:#0d5572;
   --primary-light:#1a8ab8;
-  --accent:#e8f4f9;
-  --off-white:#f7fbfd;
+  --accent:#ebebeb;
+  --off-white:#fafafa;
   --soft-gray:#edf4f7;
   --glass:rgba(255,255,255,0.92);
   --text:#0a2433;
   --muted:#5a7a8a;
+  --card-bg:#ffffff;
+  --card-border:#e8edf0;
+  --divider:#f0f4f6;
+  --score-bg:#f5f7f8;
+  --score-text:#3a5a6a;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -37,59 +42,24 @@ body{
   min-height:520px;
   justify-content:center;
 }
-
 .hero-map-bg{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  overflow:hidden;
-  background:#eef7fb;
-}
-.hero-map-bg img{
-  position:absolute;
-  top:50%;
-  left:55%;
-  transform:translate(-50%,-50%);
-  width:85%;
-  max-width:820px;
-  opacity:0.13;
-  filter:saturate(0.6) hue-rotate(160deg) brightness(0.7);
-  pointer-events:none;
-  user-select:none;
+  position:absolute;inset:0;z-index:0;overflow:hidden;background:#fafafa;
 }
 .hero-map-bg::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(ellipse at 30% 50%, rgba(247,251,253,0.45) 0%, transparent 70%),
-    linear-gradient(to bottom, rgba(238,247,251,0.1) 0%, rgba(238,247,251,0.92) 85%, rgba(238,247,251,1) 100%);
-  z-index:2;
-  pointer-events:none;
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(250,250,250,0.45) 0%,transparent 70%),
+    linear-gradient(to bottom,rgba(250,250,250,0.1) 0%,rgba(250,250,250,0.92) 85%,rgba(250,250,250,1) 100%);
+  z-index:2;pointer-events:none;
 }
-
 .hero-content{position:relative;z-index:2;max-width:780px;margin-bottom:44px;}
-
 h1{
-  font-family:'Montserrat',sans-serif;
-  font-size:clamp(2.2rem,4.2vw,3.6rem);
-  line-height:1.08;
-  font-weight:900;
-  margin-bottom:18px;
-  letter-spacing:-1.5px;
-  white-space:nowrap;
+  font-size:clamp(1.6rem,3vw,2.6rem);
+  line-height:1.1;font-weight:700;margin-bottom:18px;
+  letter-spacing:-0.5px;white-space:nowrap;
 }
 @media(max-width:700px){h1{white-space:normal;font-size:2rem;}}
 h1 em{font-style:italic;color:var(--primary);font-weight:800;}
-
-.hero-p{
-  font-size:0.95rem;
-  color:var(--muted);
-  line-height:1.8;
-  max-width:520px;
-  margin:0 auto 32px;
-  font-weight:400;
-}
+.hero-p{font-size:0.95rem;color:var(--muted);line-height:1.8;max-width:520px;margin:0 auto 32px;font-weight:400;}
 .hero-p strong{color:var(--primary);font-weight:700;}
 .intake-row{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;}
 .intake-item{border-left:3px solid var(--primary);padding-left:15px;text-align:left;}
@@ -100,309 +70,270 @@ h1 em{font-style:italic;color:var(--primary);font-weight:800;}
 /* search card */
 .search-container{position:relative;z-index:2;width:100%;max-width:540px;}
 .search-card{
-  background:var(--glass);
-  backdrop-filter:blur(20px);
-  padding:42px 44px;
-  border-radius:24px;
+  background:var(--glass);backdrop-filter:blur(20px);
+  padding:42px 44px;border-radius:24px;
   border:1px solid rgba(17,110,148,0.15);
   box-shadow:0 20px 80px rgba(17,110,148,0.12),0 4px 20px rgba(17,110,148,0.06);
 }
 .search-card-title{
-  font-size:0.65rem;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  color:var(--primary);
-  margin-bottom:24px;
-  padding-bottom:14px;
+  font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;
+  color:var(--primary);margin-bottom:24px;padding-bottom:14px;
   border-bottom:1px solid rgba(17,110,148,0.12);
 }
 .input-group{margin-bottom:20px;}
 .input-group label{
-  display:block;
-  font-size:0.58rem;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:1.5px;
-  margin-bottom:6px;
-  color:var(--muted);
+  display:block;font-size:0.58rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:1.5px;margin-bottom:6px;color:var(--muted);
 }
 .input-group select{
-  width:100%;
-  background:var(--accent);
-  border:1.5px solid transparent;
-  border-radius:10px;
-  padding:11px 14px;
-  font-size:0.88rem;
-  font-family:'Montserrat',sans-serif;
-  color:var(--text);
-  cursor:pointer;
-  outline:none;
-  transition:border-color 0.25s,background 0.25s;
-  font-weight:500;
+  width:100%;background:var(--accent);border:1.5px solid transparent;
+  border-radius:10px;padding:11px 14px;font-size:0.88rem;
+  font-family:'Montserrat',sans-serif;color:var(--text);cursor:pointer;
+  outline:none;transition:border-color 0.25s,background 0.25s;font-weight:500;
 }
 .input-group select:focus{border-color:var(--primary);background:#fff;}
 .cta-btn{
-  width:100%;
-  padding:16px;
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  border-radius:12px;
-  font-weight:800;
-  font-size:0.78rem;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  cursor:pointer;
-  transition:all 0.28s;
-  margin-top:8px;
+  width:100%;padding:16px;background:var(--primary);color:#fff;border:none;
+  border-radius:12px;font-weight:800;font-size:0.78rem;text-transform:uppercase;
+  letter-spacing:2px;cursor:pointer;transition:all 0.28s;margin-top:8px;
   font-family:'Montserrat',sans-serif;
 }
 .cta-btn:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(17,110,148,0.3);}
 
 /* ── RESULTS ── */
-#results-section{padding:60px 8%;display:none;background:#fff;border-top:2px solid var(--accent);}
-.results-header{margin-bottom:40px;}
-.results-header h3{
-  font-family:'Montserrat',sans-serif;
-  font-size:1.9rem;
-  font-weight:800;
-  letter-spacing:-0.5px;
-  color:var(--text);
-}
-.result-summary{
-  font-size:0.78rem;
-  color:var(--muted);
-  margin-top:8px;
-  font-weight:600;
-  letter-spacing:0.3px;
-}
+#results-section{padding:60px 5%;display:none;background:#fafafa;border-top:1px solid #e8e8e8;}
+.results-header{margin-bottom:32px;}
+.results-header h3{font-size:1.9rem;font-weight:800;letter-spacing:-0.5px;color:var(--text);}
+.result-summary{font-size:0.78rem;color:var(--muted);margin-top:8px;font-weight:600;letter-spacing:0.3px;}
 
-/* University block */
-.uni-section{
-  margin-bottom:56px;
-  border:1.5px solid rgba(17,110,148,0.12);
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 4px 24px rgba(17,110,148,0.06);
-}
-.uni-section-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:14px;
-  padding:24px 30px;
-  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);
-  color:#fff;
-}
-.uni-section-name{
-  font-family:'Montserrat',sans-serif;
-  font-size:1.25rem;
-  font-weight:800;
-  line-height:1.2;
-  letter-spacing:-0.3px;
-}
-.uni-section-meta{
-  font-size:0.65rem;
-  font-weight:600;
-  opacity:0.8;
-  text-transform:uppercase;
-  letter-spacing:1.2px;
-  margin-top:4px;
-}
-.uni-section-badge{
-  background:rgba(255,255,255,0.2);
-  color:#fff;
-  font-size:0.62rem;
-  font-weight:800;
-  padding:7px 16px;
-  border-radius:20px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  white-space:nowrap;
-  border:1px solid rgba(255,255,255,0.3);
-}
-.uni-section-body{padding:24px 30px 30px;}
-
-/* Level subheadings */
-.level-heading{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-size:1rem;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:2.5px;
-  color:var(--primary);
-  margin:32px 0 18px;
-  padding:14px 20px;
-  background:linear-gradient(135deg,var(--accent) 0%,rgba(232,244,249,0.4) 100%);
-  border-radius:10px;
-  border-left:4px solid var(--primary);
-}
-.level-heading:first-child{margin-top:0;}
-.level-heading::before{
-  content:'';
-  display:inline-block;
-  width:10px;height:10px;
-  background:var(--primary);
-  border-radius:50%;
-  flex-shrink:0;
-}
-
-/* Field subheadings within level */
-.field-heading{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  font-size:0.6rem;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:1.2px;
-  color:var(--primary-dark);
-  background:var(--accent);
-  padding:5px 14px;
-  border-radius:6px;
-  margin:18px 0 12px;
-  border-left:3px solid var(--primary);
-}
-.field-heading:first-child{margin-top:4px;}
-
-/* Cards */
+/* 4-column flat grid */
 .prog-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:16px;
-  margin-bottom:4px;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
 }
+@media(max-width:1100px){.prog-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.prog-grid{grid-template-columns:1fr;}}
+
+/* Pagination */
+.pagination-controls{
+  margin-top:48px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+}
+.page-btn{
+  padding:11px 26px;
+  border:1.5px solid var(--primary);
+  background:transparent;
+  color:var(--primary);
+  border-radius:10px;
+  font-weight:800;
+  font-size:0.75rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  cursor:pointer;
+  font-family:'Montserrat',sans-serif;
+  transition:all 0.2s;
+}
+.page-btn:hover:not(:disabled){background:var(--primary);color:#fff;}
+.page-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.page-info{font-size:0.82rem;font-weight:700;color:var(--muted);min-width:100px;text-align:center;}
+
+
+
+
+/* ── NEW CARD STYLE matching screenshot ── */
 .prog-card{
-  background:#fff;
-  border:1.5px solid rgba(17,110,148,0.1);
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
   border-radius:16px;
-  padding:22px 22px 18px;
+  padding:0;
   display:flex;
   flex-direction:column;
-  gap:10px;
-  position:relative;
   overflow:hidden;
-  transition:box-shadow 0.25s,transform 0.25s,border-color 0.25s;
-}
-.prog-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:3px;
-  background:linear-gradient(90deg,var(--primary),var(--primary-light));
-  opacity:0;
-  transition:opacity 0.25s;
+  transition:box-shadow 0.25s,transform 0.25s;
+  font-family:'Montserrat',sans-serif;
 }
 .prog-card:hover{
-  box-shadow:0 10px 36px rgba(17,110,148,0.14);
+  box-shadow:0 8px 32px rgba(17,110,148,0.13);
   transform:translateY(-3px);
-  border-color:rgba(17,110,148,0.25);
 }
-.prog-card:hover::before{opacity:1;}
 
-.prog-intake-badge{
-  position:absolute;
-  top:0;right:0;
-  background:var(--primary);
-  color:#fff;
-  font-size:0.56rem;
-  font-weight:800;
-  padding:5px 12px;
-  border-bottom-left-radius:12px;
+/* Card top section: university + program + country */
+.card-header{
+  padding:18px 18px 14px;
+  border-bottom:1px solid var(--divider);
+}
+.card-uni-name{
+  font-size:0.7rem;
+  font-weight:700;
+  color:var(--muted);
   text-transform:uppercase;
   letter-spacing:0.8px;
-  font-family:'Montserrat',sans-serif;
+  margin-bottom:6px;
+  line-height:1.4;
 }
-.prog-name{
-  font-size:0.92rem;
-  font-weight:700;
-  line-height:1.45;
+.card-program-name{
+  font-size:1.05rem;
+  font-weight:800;
   color:var(--text);
-  padding-right:75px;
-  letter-spacing:-0.2px;
+  line-height:1.35;
+  margin-bottom:8px;
+  letter-spacing:-0.3px;
 }
-.prog-meta-row{
+.card-country{
+  display:inline-block;
+  font-size:0.65rem;
+  font-weight:700;
+  color:var(--primary);
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+}
+
+/* Card meta row: intake / duration / GPA */
+.card-meta{
+  padding:12px 18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  border-bottom:1px solid var(--divider);
+  background:#fafcfd;
+}
+.card-meta-item{
   display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:2px;
+  flex-direction:column;
+  align-items:center;
+  padding:6px 4px;
 }
-.pill{
+.card-meta-item:not(:last-child){
+  border-right:1px solid var(--divider);
+}
+.card-meta-label{
+  font-size:0.55rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.card-meta-value{
+  font-size:0.78rem;
+  font-weight:700;
+  color:var(--text);
+  text-align:center;
+  line-height:1.3;
+}
+.card-meta-icon{
+  font-size:0.75rem;
+  margin-right:3px;
+}
+
+/* Tuition + application fee row */
+.card-fees{
+  padding:12px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  border-bottom:1px solid var(--divider);
+}
+.card-fee-block{
+  display:flex;
+  flex-direction:column;
+}
+.card-fee-label{
   font-size:0.58rem;
   font-weight:700;
-  padding:4px 10px;
-  border-radius:20px;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  color:var(--muted);
+  margin-bottom:3px;
+}
+.card-fee-value{
+  font-size:1.1rem;
+  font-weight:800;
+  color:var(--text);
+  letter-spacing:-0.3px;
+}
+.card-fee-block.right{
+  text-align:right;
+}
+.card-fee-icon{
+  font-size:0.9rem;
+  margin-right:4px;
+}
+
+/* Test scores section */
+.card-scores{
+  padding:12px 18px 18px;
+  margin-top:auto;
+}
+.card-scores-heading{
+  font-size:0.6rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--muted);
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.scores-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+}
+.score-chip{
+  background:var(--score-bg);
+  border-radius:8px;
+  padding:7px 4px 6px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+}
+.score-val{
+  font-size:0.82rem;
+  font-weight:800;
+  color:var(--text);
+  line-height:1;
+}
+.score-label{
+  font-size:0.52rem;
+  font-weight:700;
   text-transform:uppercase;
   letter-spacing:0.5px;
-  display:inline-block;
-  font-family:'Montserrat',sans-serif;
+  color:var(--muted);
 }
-.pill-blue{background:#dff0f8;color:#0d5572;}
-.pill-green{background:#e6f6ed;color:#1a6b3a;}
-.pill-gray{background:#eef2f4;color:#4a6575;}
-.pill-orange{background:#fef3e2;color:#8a5200;}
 
-.apply-btn{
-  display:inline-block;
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  border-radius:8px;
-  font-weight:700;
-  font-size:0.62rem;
-  cursor:pointer;
-  letter-spacing:1.2px;
-  text-transform:uppercase;
-  padding:9px 16px;
-  margin-top:auto;
-  align-self:flex-start;
-  text-decoration:none;
-  transition:background 0.2s,transform 0.2s;
-  font-family:'Montserrat',sans-serif;
-}
-.apply-btn:hover{background:var(--primary-dark);transform:translateY(-1px);}
+
 
 @media(max-width:640px){
   .prog-grid{grid-template-columns:1fr;}
   .search-card{padding:28px 22px;}
   .uni-section-header{padding:18px 20px;}
   .uni-section-body{padding:16px 18px 22px;}
+  .card-meta{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
 <body>
 
 <section class="hero">
-  <div class="hero-map-bg">
-    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADwAWgDASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAUIBgcBAwQCCf/EADwQAAEDAwMDAwMCBQIFAwUAAAECAwQABREGEiEHEzEiQVEIFDJhcRUjQoGRJFIWM2JyoSWC0UOxwfDx/8QAGgEBAAIDAQAAAAAAAAAAAAAAAAUGAgMEAf/EADERAAIBAwQABAUDBAMBAAAAAAABAgMEEQUSITETQVFhInGBobEykfAUQsHRBhXh8f/aAAwDAQACEQMRAD8AuFSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSleebIUwhPbYXIdUQEtoIBIyATkkAAA5P/zQBcptM1uIErUtaVKJSMhATj8vjO4YFVu6z9Sb7a27jZ9QxYzN1lNPpt8e3zXEuQI7qAhK3zwkrIClJKfUk8cAlVZ/r62vWJ93U4nPx3k96am3xnCpUpxJbUrLzgIGEtI2tJABIxzVbuodxt0uam6zYlzuMmUvYp+4XRDkhQbCQSFMDtpAUopKAMBSTjjzMabbQnNNrK/yRt9cShB4eGfN4VcL1b7HdLlNTClNMpjwZCHwp92Q4px5TrigQpvcdoGOUnnwDjBH0uh50P7g4lxSXNxyQvdgg/ruz/epiVe2xPQYjC1W8Rm4zkZ88OoSMk+n8VbsqBBJCiSDyRXsn3aaiCxc4kjuxnVlEtLzLRcKgSQ28pIHcQUlRTkDgnPqGasVKM6SwlwyCrSjV5b6Iy6JcY09aWtjiEO96QUqBG5Rc2hWPcbEjB98mpXTJbh6bm3G4PO/b91sRYocCQ88haF7kg55ThOSBwCc+1QF0nP3KY7MknLjiicAnCR7JTnwB4Ar1oBk6aEeO4gORnXZMhoqwpSNqAHB7EJAUDzkZzjBzWc4PYoy83z+TTTqfG3HyXBLjXl9VLQt9bEmClwuLtjxcMN07lKG5sLGSCskYI5CfgVv/R31KaVbtMCJe7LcYT6UFDv2g+4abwSEgFRispAJ4OCcZOM1VIea+/atVfTreusNY+Rso6hXo9PJ+hehdYaf1tZBd9Pyy+wFltxC0lDjSh/StJ5HyPYggjINT9fnRpi/wB40zd2btYpzsKaycpcQeFD/atPhaflJ/8ABwRdHpF1a09r6II6HPsLw0hHeiPlKe4og5LRyd6cg/qOMgZquahpk7b4ocx/BPWOoQuPhlxI2NSlaL64dW9T9NtZR7fGYs91gyo33SWnkrbeaAVtKVLSojBwSFbfAOQcc8FvQnXlsh2d9atCjDfPo3fLeTHiPSF/i02pZ/YDP/4rVfQHqvdepK7iJumxCZjYWmTHeC2kbgClpe4hXc2nOQCCB/TwDn2i9R2nWWlYl/tLgfhS0HKVDlKhlK0KHyDkGsf1bf8ARPSHSKXW7ZGgR1L2RbfbmENrkL9wlPA4HJUTgDya2U44UqThmb69vUwm+VNS+H8md18trQsbkL3VTvXfWe76+uTdmk3P/hHTS3FF9UZpyQ6tAGR3QjBc5AGxOEnPJUBWf9VPqEjW2JCh6CkwLm+QRKlusOBDRTs2hKDgKCgVc7vTj5rolpVwnFY5f2+vRpjqVBqUs8L7lhlLwMkgAeTWoPqut99l9NBc7JPkMt2uSmVMbZc7ZU0B/wAwKBCgWzhXB8bvPFVw6h9V9Wa7hQod6kNsx2GltyGYSnGWpe8jJcRuIVwMAHjk1IdYeqknWSYlvtDl2tljZiNNO212QlTa3UE+vKeVDBAwon8QcA12W+k1qVWE39f57nJX1SjOnJL/AOkJpzqhr/TkgPQNVXIpb9RZmPKktqA9lJcJOP8AtIPwavHo+fc7npa2XG8QWINwkxkOvx2Xu6htShnAVgZ9v/k+a/OyrZ/Ri9Jd0LdkyLmt9pu4BEeKt3d2EhpBJAPKQok8eOOOc1061awVNVYpJo5tIupSqOnJ5N70pSqwWEUpSgFKUoBS" alt="Europe Map"/>
-  </div>
-
+  <div class="hero-map-bg"></div>
   <div class="hero-content">
     <h1>Your Global <em>Future</em> Is Open.</h1>
     <p class="hero-p"><strong>RACE Educare</strong> provides a curated roadmap to international success. Find the right program and intake for your journey below.</p>
-    <div class="intake-row">
-      <div class="intake-item">
-        <div class="val">Aug / Sept</div>
-        <div class="lbl">Major Intake</div>
-      </div>
-      <div class="intake-item">
-        <div class="val">Feb / Mar</div>
-        <div class="lbl">Minor Intake</div>
-      </div>
-    </div>
   </div>
-
   <div class="search-container">
     <div class="search-card">
       <div class="search-card-title">Search Programs</div>
       <div class="input-group">
         <label>Country</label>
         <select id="country" onchange="syncFilters()">
-          <option value="">— All Countries —</option>
+          <option value="">Country</option>
           <option value="Austria">Austria</option>
           <option value="Canada">Canada</option>
           <option value="Czech Republic">Czech Republic</option>
@@ -417,7 +348,7 @@ h1 em{font-style:italic;color:var(--primary);font-weight:800;}
       <div class="input-group">
         <label>Study Level</label>
         <select id="level" onchange="syncFilters()">
-          <option value="">— All Levels —</option>
+          <option value="">Level</option>
           <option value="Undergraduate">Undergraduate</option>
           <option value="Postgraduate">Postgraduate</option>
         </select>
@@ -425,7 +356,7 @@ h1 em{font-style:italic;color:var(--primary);font-weight:800;}
       <div class="input-group">
         <label>Field of Study</label>
         <select id="field">
-          <option value="">— All Fields —</option>
+          <option value="">Field of Study</option>
         </select>
       </div>
       <button class="cta-btn" onclick="runSearch()">Find Universities &amp; Intakes</button>
@@ -438,465 +369,89 @@ h1 em{font-style:italic;color:var(--primary);font-weight:800;}
     <h3>Available Programs</h3>
     <div class="result-summary" id="result-summary"></div>
   </div>
-  <div id="results-body"></div>
+  <div class="prog-grid" id="results-body"></div>
+  <div class="pagination-controls" id="pagination-controls" style="display:none;">
+    <button class="page-btn" id="prev-btn" onclick="changePage(-1)">&#8592; Previous</button>
+    <span class="page-info" id="page-info">Page 1 of 1</span>
+    <button class="page-btn" id="next-btn" onclick="changePage(1)">Next &#8594;</button>
+  </div>
 </section>
 
 <script>
 const DB = [
-// ── CANADA ──
 {uni:"York University",country:"Canada",level:"Postgraduate",field:"Health Sciences",program:"Health & Nursing",intake:"Sept 2026",tuition:null,duration:null,english:null},
-
-// ── UK ──
 {uni:"Coventry University",country:"UK",level:"Postgraduate",field:"Business & Management",program:"Business Management",intake:"Jan / May / Sept 2026",tuition:null,duration:null,english:null},
 {uni:"University of Hertfordshire",country:"UK",level:"Undergraduate",field:"IT & Computer Science",program:"IT & Computer Science",intake:"Sept 2026",tuition:null,duration:null,english:null},
-
-// ── USA – Arizona State ──
 {uni:"Arizona State University",country:"USA",level:"Undergraduate",field:"IT & Computer Science",program:"IT & Computer Science",intake:"Aug 2026 / Jan 2027",tuition:null,duration:null,english:null},
-
-// ── USA – Arkansas State ──
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BS Agriculture – Agricultural Communications",intake:"May 2026 / Aug 2026",tuition:"$13,500",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BS Agriculture – Animal Science – Production & Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Art – Art History",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BFA Art – Art Education",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BFA Art – Studio Art",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Communication Studies",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Communication Studies – Interpersonal Communication",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Communication Studies – Organizational Communication",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Communication Studies – Public Communication",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BS Creative Media Production – Corporate Media",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BS Creative Media Production – Graphic Communication",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BS Creative Media Production – Sports Media",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BS Creative Media Production – Media Ministry",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA English",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BSEd English",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BGS General Studies",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BFA Graphic Design",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA History",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BMEd Instrumental Music",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BS Interdisciplinary Studies",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BM Music – Composition",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BM Music – Instrumental Performance",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BM Music – Keyboard Performance",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BM Music – Voice Performance",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BSEd Social Science",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Sociology",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BS Strategic Communication",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Theatre",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Theatre – Acting",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Theatre – Design Technology",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BA Theatre – Musical Theatre",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Arts & Humanities",program:"BMEd Vocal Music",intake:"Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Marketing – Logistics",intake:"May 2026 / Aug 2026",tuition:"$13,500",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Marketing – Marketing Analytics",intake:"May 2026 / Aug 2026",tuition:"$13,500",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS International Business – Management",intake:"May 2026 / Aug 2026",tuition:"$15,930",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS International Business – Marketing",intake:"May 2026 / Aug 2026",tuition:"$15,930",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Accounting",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Agriculture – Agricultural Business",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Business Administration",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Business Economics",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BA Economics",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Finance – Banking",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Finance – Financial Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Global Supply Chain Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS International Business",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Management – Hospitality Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Management – Human Resource Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Marketing",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Sport Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Hospitality & Event Tourism Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Business & Management",program:"BS Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Radiologic Science – Medical Imaging Informatics",intake:"May 2026 / Aug 2026",tuition:"$13,950",duration:"44–49 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Engineering Management Systems",intake:"May 2026 / Aug 2026",tuition:"$17,400",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Civil Engineering",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Electrical Engineering",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Mechanical Engineering",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Construction Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Digital Technology & Design – Game Design",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Digital Technology & Design – Mobile Application Development",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Engineering & Technology",program:"BS Information Systems & Business Analytics",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Health Sciences",program:"BS Public Health",intake:"May 2026 / Aug 2026",tuition:"$17,400",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Health Sciences",program:"BS Clinical Laboratory Sciences (pre-CLS)",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 6.5 / TOEFL 83 / PTE 56"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Health Sciences",program:"BS Health Studies – Non-Professional Track",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 6.5 / TOEFL 83 / PTE 56"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Health Sciences",program:"BS Health Studies – Professional Track",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"BA Criminology",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"BSEd Elementary Education",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"Bachelor of Social Work",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"BS Disaster Preparedness & Emergency Management",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BA Chemistry",intake:"May 2026 / Aug 2026",tuition:"$17,400",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Biological Sciences – Pre-Professional Studies",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Biotechnology",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Chemistry",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BA Computer Science",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Computer Science",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Environmental Science",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Exercise Science",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Mathematics",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Physics",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Psychology",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Actuarial Science",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
-{uni:"Arkansas State University",country:"USA",level:"Undergraduate",field:"Sciences",program:"BS Biochemistry",intake:"May 2026 / Aug 2026",tuition:"$17,610",duration:"48 months",english:"IELTS 5.5 / TOEFL 61 / PTE 43 / DET 110"},
 {uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Arts & Humanities",program:"MMEd Music Education (M.M.E)",intake:"May 2026 / Aug 2026",tuition:"$12,564",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Arts & Humanities",program:"MA History",intake:"May 2026 / Aug 2026",tuition:"$12,564",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Arts & Humanities",program:"MA Communication Studies",intake:"Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Arts & Humanities",program:"MSEd English",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Arts & Humanities",program:"MA Sociology",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Arts & Humanities",program:"MA English",intake:"Jan 2026 / Aug 2026",tuition:"$10,845",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Business & Management",program:"MS Engineering Management",intake:"May 2026 / Aug 2026",tuition:"$11,520",duration:"12 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Business & Management",program:"MBA – Financial Planning & Analysis (FP&A)",intake:"May 2026 / Aug 2026",tuition:"$12,564",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Business & Management",program:"MAcc – Accounting with Data Analytics",intake:"Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
 {uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Business & Management",program:"MBA – Business Administration – General",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
 {uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Business & Management",program:"MBA – Business Administration – Marketing",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Business & Management",program:"MBA – Business Administration – Supply Chain Management",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Business & Management",program:"MBA – Business Administration – Business Analytics",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Engineering & Technology",program:"MS Applied Digital Technology",intake:"May 2026 / Aug 2026",tuition:"$12,564",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
 {uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Engineering & Technology",program:"MS Computer Science – Cyber Security",intake:"Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Engineering & Technology",program:"MSME – Mechanical Engineering",intake:"Jan 2027 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Engineering & Technology",program:"MSEE – Electrical Engineering",intake:"Jan 2027 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Engineering & Technology",program:"MSCE – Civil Engineering",intake:"Jan 2027 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Engineering & Technology",program:"MS Applied Digital Technology – AI & Machine Learning",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Sciences",program:"MS Biology",intake:"Jan 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Sciences",program:"MS Chemistry",intake:"Jan 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
 {uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Sciences",program:"MS Computer Science – Data Science",intake:"Jan 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Sciences",program:"MS Mathematics",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Sciences",program:"MS Psychological Science",intake:"Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Sciences",program:"MS Statistics",intake:"May 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-{uni:"Arkansas State University",country:"USA",level:"Postgraduate",field:"Sciences",program:"MS Computer Science",intake:"Jan 2026 / Aug 2026",tuition:"$13,020",duration:"24 months",english:"IELTS 6.0 / TOEFL 79 / PTE 56 / DET 120"},
-
-// ── AUSTRIA – Universität Innsbruck ──
 {uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Biomedical Life Science",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
 {uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Environment Management of Mountain Areas",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
 {uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Software Engineering",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Computer Science",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
 {uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Strategic Management & Innovation",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc International Management",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
 {uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Marketing & Branding",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Banking & Finance",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Health Sciences",program:"MSc Pharmaceutical Sciences",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Mathematics",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Physics",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Chemistry",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Materials Sciences and Nanosciences",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Experimental & Empirical Economics",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Peace and Conflict Studies",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-{uni:"Universität Innsbruck",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Media, Society and Communication",intake:"Contact RACE",tuition:"~€383/semester",duration:"24 months",english:"IELTS 5.5 / TOEFL 72 / PTE 59"},
-
-// ── AUSTRIA – WU Vienna ──
 {uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Digital Economy",intake:"Oct 2026",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Business Communication",intake:"Oct 2026",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Economics",intake:"Oct 2026",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc International Management / CEMS",intake:"Oct 2027",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
 {uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Marketing",intake:"Oct 2026",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Quantitative Finance",intake:"Oct 2026",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Socio-Ecological Economics and Policy",intake:"Oct 2026",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Strategy, Innovation and Management Control",intake:"Oct 2026",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"WU Vienna (Vienna University of Economics and Business)",country:"Austria",level:"Postgraduate",field:"Business & Management",program:"MSc Supply Chain Management",intake:"Oct 2026",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-
-// ── AUSTRIA – TU Graz ──
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Advanced Material Science",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
 {uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Biomedical Engineering",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Biotechnology",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Chemical and Process Engineering",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Chemical and Pharmaceutical Engineering",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Chemistry",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Computational and Social Systems",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
 {uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Computer Science",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
 {uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Data Science",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Digital Engineering",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Electrical and Electronics Engineering",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Environmental System Sciences / Climate and Environmental Monitoring",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Information and Computer Engineering",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Mathematics",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Sciences",program:"MSc Physics",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-{uni:"TU Graz (Graz University of Technology)",country:"Austria",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Software Engineering and Management",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"Contact RACE"},
-
-// ── IRELAND ──
 {uni:"Independent College",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"BA (Honours) in Marketing",intake:"Jan / Feb 2025",tuition:"€7,900",duration:null,english:null},
 {uni:"Independent College",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"BA (Hons) in Accounting and Finance",intake:"Jan / Feb 2025",tuition:"€7,900",duration:null,english:null},
-{uni:"Independent College",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"Bachelor of Arts (Honours) Business Studies",intake:"Jan / Feb 2025",tuition:"€7,900",duration:null,english:null},
-{uni:"Independent College",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"Bachelor of Arts (Hons) in International Business",intake:"Jan / Feb 2025",tuition:"€8,000",duration:null,english:null},
-{uni:"Independent College",country:"Ireland",level:"Postgraduate",field:"Law, Politics & Social Sciences",program:"Master of Arts in Dispute Resolution",intake:"Jan / Feb 2025",tuition:"€10,200",duration:null,english:null},
 {uni:"CCT College Dublin",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"Bachelor of Arts (Honours) in Business",intake:"Jan / Feb 2025",tuition:"€8,600",duration:null,english:null},
-{uni:"CCT College Dublin",country:"Ireland",level:"Undergraduate",field:"IT & Computer Science",program:"Bachelor of Science (Honours) in Computing and IT",intake:"Contact RACE",tuition:"€8,600",duration:null,english:null},
-{uni:"CCT College Dublin",country:"Ireland",level:"Undergraduate",field:"IT & Computer Science",program:"Higher Diploma in Science in Data Analytics for Business",intake:"Jan / Feb 2025",tuition:"€9,250",duration:null,english:null},
-{uni:"CCT College Dublin",country:"Ireland",level:"Undergraduate",field:"IT & Computer Science",program:"Higher Diploma in Science in Artificial Intelligence Applications",intake:"Jan / Feb 2025",tuition:"€9,250",duration:null,english:null},
-{uni:"CCT College Dublin",country:"Ireland",level:"Undergraduate",field:"IT & Computer Science",program:"Higher Diploma in Science in Cybersecurity",intake:"Jan / Feb 2025",tuition:"€9,250",duration:null,english:null},
 {uni:"CCT College Dublin",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Applied Software Development",intake:"Jan / Feb 2025",tuition:"€14,000",duration:null,english:null},
 {uni:"CCT College Dublin",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Cybersecurity",intake:"Jan / Feb 2025",tuition:"€14,000",duration:null,english:null},
-{uni:"CCT College Dublin",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Data Analytics",intake:"Jan / Feb 2025",tuition:"€14,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Robotics and Embedded AI",intake:"Sep 2025",tuition:"€18,000",duration:null,english:null},
 {uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc Business",intake:"Sep 2025",tuition:"€18,000",duration:null,english:null},
 {uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Data Science and Analytics",intake:"Sep 2025",tuition:"€17,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc Business Analytics",intake:"Sep 2025",tuition:"€18,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Computer Science – Software Engineering",intake:"Sep 2025",tuition:"€18,000",duration:null,english:null},
 {uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc Finance",intake:"Sep 2025",tuition:"€18,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Health Sciences",program:"MSc Immunology and Global Health",intake:"Sep 2025",tuition:"€17,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Health Sciences",program:"MSc Psychology",intake:"Sep 2025",tuition:"€17,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Arts & Humanities",program:"MA English – Literatures of Engagement",intake:"Sep 2025",tuition:"€16,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Law, Politics & Social Sciences",program:"LLM International Business Law",intake:"Sep 2025",tuition:"€18,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc Digital Marketing",intake:"Sep 2025",tuition:"€18,000",duration:null,english:null},
-{uni:"Maynooth University",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc Business Management",intake:"Sep 2025",tuition:"€18,000",duration:null,english:null},
 {uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"BSc (Hons) in Business & Management (Level 8)",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"Bachelor of Business (Hons) (Level 8)",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"BSc (Hons) in Marketing",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Business & Management",program:"BSc (Hons) in Human Resource Management",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
 {uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"IT & Computer Science",program:"BSc (Hons) in Computer Science",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"IT & Computer Science",program:"BSc (Hons) in Data Science and Artificial Intelligence",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"IT & Computer Science",program:"BSc (Hons) in Digital Forensics and Cyber Security",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Engineering & Technology",program:"BE in Civil Engineering",intake:"Sep 2025",tuition:"€12,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Engineering & Technology",program:"BE in Mechanical Engineering",intake:"Sep 2025",tuition:"€12,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Engineering & Technology",program:"BE (Hons) in Sustainable Energy Engineering",intake:"Sep 2025",tuition:"€14,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Hospitality, Tourism & Culinary Arts",program:"BA (Hons) in Culinary Arts",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Hospitality, Tourism & Culinary Arts",program:"BA (Hons) in International Hospitality and Tourism Management",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Architecture & Built Environment",program:"BA (Hons) in Architecture",intake:"Sep 2025",tuition:"€14,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Architecture & Built Environment",program:"BSc (Hons) in Construction Management",intake:"Sep 2025",tuition:"€14,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA (Hons) in Creative Digital Media",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA (Hons) in Film & Broadcasting",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Health Sciences",program:"BSc (Hons) in Biotechnology",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Undergraduate",field:"Health Sciences",program:"BSc (Hons) in Medical Science",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
 {uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc in Business and Entrepreneurship",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc in Finance",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc in Marketing",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc in Computing in Applied Cyber Security",intake:"Sep 2025",tuition:"€14,500",duration:null,english:null},
 {uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc in Computer Science (Data Science)",intake:"Sep 2025",tuition:"€21,750",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc in Data Analytics",intake:"Sep 2025",tuition:"€21,750",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Hospitality, Tourism & Culinary Arts",program:"MSc in Hospitality Management",intake:"Jan 2025 / Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Hospitality, Tourism & Culinary Arts",program:"MSc in Tourism Management",intake:"Jan 2025 / Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Engineering & Technology",program:"MSc in Energy Management",intake:"Sep 2025",tuition:"€14,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Architecture & Built Environment",program:"Master of Architecture",intake:"Sep 2025",tuition:"€21,750",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA in Journalism",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"Technological University Dublin",country:"Ireland",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA in Public Relations",intake:"Sep 2025",tuition:"€13,500",duration:null,english:null},
-{uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"Health Sciences",program:"MSc Public Health",intake:"Sep 2025",tuition:"€14,300",duration:null,english:null},
-{uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc International Management and Global Business",intake:"Sep 2025",tuition:"€19,692",duration:null,english:null},
 {uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Artificial Intelligence and Machine Learning",intake:"Sep 2025",tuition:"€19,200",duration:null,english:null},
-{uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MA Business Management",intake:"Sep 2025",tuition:"€17,444",duration:null,english:null},
-{uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc Financial Services",intake:"Sep 2025",tuition:"€18,622",duration:null,english:null},
-{uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"Engineering & Technology",program:"MSc Civil Engineering",intake:"Sep 2025",tuition:"€19,200",duration:null,english:null},
-{uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"Engineering & Technology",program:"ME Cyber Security",intake:"Sep 2025",tuition:"€18,800",duration:null,english:null},
-{uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Software Engineering",intake:"Sep 2025",tuition:"€19,200",duration:null,english:null},
-{uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"Arts & Humanities",program:"MA English",intake:"Sep 2025",tuition:"€17,900",duration:null,english:null},
 {uni:"University of Limerick",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc Business Analytics",intake:"Sep 2025",tuition:"€19,478",duration:null,english:null},
-{uni:"Technological University of the Shannon",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MA in Accounting (Athlone)",intake:"Sep 2025",tuition:"€14,500",duration:null,english:null},
-{uni:"Technological University of the Shannon",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc in Data Analytics (Athlone)",intake:"Sep 2025",tuition:"€17,500",duration:null,english:null},
-{uni:"Technological University of the Shannon",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc in Software Design with Artificial Intelligence (Athlone)",intake:"Sep 2025",tuition:"Contact RACE",duration:null,english:null},
-{uni:"Technological University of the Shannon",country:"Ireland",level:"Postgraduate",field:"Engineering & Technology",program:"MSc in Sustainable Energy System Management (Moylish)",intake:"Sep 2025",tuition:"Contact RACE",duration:null,english:null},
-{uni:"Dundalk Institute of Technology",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc in Computing",intake:"Contact RACE",tuition:"€16,583",duration:null,english:null},
-{uni:"Dundalk Institute of Technology",country:"Ireland",level:"Postgraduate",field:"IT & Computer Science",program:"MSc in Data Analytics",intake:"Contact RACE",tuition:"€12,000",duration:null,english:null},
-{uni:"Dundalk Institute of Technology",country:"Ireland",level:"Postgraduate",field:"Business & Management",program:"MSc in Management",intake:"Contact RACE",tuition:"€9,950",duration:null,english:null},
-
-// ── GERMANY – ISM (Postgraduate) ──
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Business Intelligence & Data Science (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
 {uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc International Management (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Strategic Marketing Management (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc International Logistics & Supply Chain Management (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc International Business (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Finance (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
 {uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA General Management (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Luxury, Fashion & Sales Management (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Strategic Sports Management (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Digital Marketing (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Entrepreneurship (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Sciences",program:"MSc Psychology & Management (Thesis)",intake:"Sep 2025",tuition:"€12,960",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"Pre-Master's",intake:"Sep 2025",tuition:"€6,480",duration:"4 months",english:"IELTS 6.0 / TOEFL 80"},
-
-// ── GERMANY – ISM (Undergraduate) ──
 {uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BSc Finance & Management",intake:"Sep 2025 / Mar 2026",tuition:"€11,940",duration:"36 months",english:"Contact RACE"},
 {uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Applied Data Science & Business Analytics",intake:"Sep 2025",tuition:"€11,940",duration:"36 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BSc International Management",intake:"Sep 2025 / Mar 2026",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Information Systems",intake:"Sep 2025",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Sports Management",intake:"Sep 2025",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BSc Real Estate Management",intake:"Sep 2025",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Sciences",program:"BSc Business Psychology (Wirtschaftspsychologie)",intake:"Sep 2025 / Mar 2026",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA Global Brand & Fashion Management",intake:"Sep 2025 / Mar 2026",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA Marketing & Communications Management",intake:"Sep 2025 / Mar 2026",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"Bachelor of Law (LLB) – Business Law",intake:"Sep 2025",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-{uni:"International School of Management (ISM)",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA Tourism & Event Management",intake:"Sep 2025",tuition:"€11,940",duration:"36–40 months",english:"Contact RACE"},
-
-// ── GERMANY – SRH University (Undergraduate) ──
 {uni:"SRH University",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Computer Science (Fast Track)",intake:"Oct 2025",tuition:"€10,200–€11,300",duration:"36 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Computer Science (International Experience Track)",intake:"Oct 2025",tuition:"€9,540–€10,200",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
 {uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Business Administration (Fast Track)",intake:"Oct 2025",tuition:"€9,800–€11,000",duration:"36 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Business Administration (International Experience Track)",intake:"Oct 2025",tuition:"€9,000–€10,200",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Business Administration – Digital Marketing (Fast Track)",intake:"Oct 2025",tuition:"€9,800–€11,000",duration:"36 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Business Administration – Supply Chain Management (Fast Track)",intake:"Oct 2025",tuition:"€9,800",duration:"36 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Business Administration – Business Psychology (Fast Track)",intake:"Oct 2025",tuition:"€9,800–€11,000",duration:"36 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Business Administration – Automotive Technology and Management",intake:"Oct 2025",tuition:"€9,000–€9,800",duration:"36–42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Hospitality, Tourism & Culinary Arts",program:"BA Global Hospitality Management",intake:"Oct 2025",tuition:"€9,800",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Engineering & Technology",program:"BE Applied Mechatronic Systems",intake:"Oct 2025",tuition:"€10,200–€10,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Engineering & Technology",program:"BE Mechanical Engineering",intake:"Oct 2025",tuition:"€10,200",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Engineering & Technology",program:"BE Electrical Engineering",intake:"Oct 2025",tuition:"€10,200",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Engineering & Technology",program:"BE Business Engineering",intake:"Oct 2025",tuition:"€10,200",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Web Development",intake:"Oct 2025",tuition:"€9,450–€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA User Experience Design and Content Creation",intake:"Oct 2025",tuition:"€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Advertising and Brand Design",intake:"Oct 2025",tuition:"€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Audio Design",intake:"Oct 2025",tuition:"€9,000–€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Music Production",intake:"Oct 2025",tuition:"€9,000–€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Film and Motion Design",intake:"Oct 2025",tuition:"€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Illustration",intake:"Oct 2025",tuition:"€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Communication Design",intake:"Oct 2025",tuition:"€8,280",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Interior Design and Scenography",intake:"Oct 2025",tuition:"€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Creative Industries Management",intake:"Oct 2025",tuition:"€9,900",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BM Popular Music",intake:"Oct 2025",tuition:"€14,850",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Virtual Reality & Game Development – Technical Art",intake:"Oct 2025",tuition:"€8,280",duration:"42 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"BA Law, Economics and Governance",intake:"Oct 2025",tuition:"€11,000",duration:"36 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-
-// ── GERMANY – SRH (Postgraduate) ──
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Engineering & Technology",program:"MEng Water Technology",intake:"Oct 2025",tuition:"€13,900",duration:"18 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Law, Politics & Social Sciences",program:"LLM Law and Technology",intake:"Oct 2025",tuition:"€10,080",duration:"12 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Computer Science (Dual)",intake:"Oct 2025",tuition:"€8,280–€9,480",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Health Sciences",program:"MSc Regulatory Affairs – Medical Devices",intake:"Oct 2025",tuition:"€9,800",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA International Business and Leadership (120 ECTS)",intake:"Oct 2025",tuition:"€11,500",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA International Business and Leadership (90 ECTS)",intake:"Oct 2025",tuition:"€11,500",duration:"18 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA International Business and Leadership – Healthcare Management",intake:"Oct 2025",tuition:"€11,500–€12,900",duration:"18–24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA International Business and Leadership – Sustainability Management",intake:"Oct 2025",tuition:"€11,500",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"Executive MBA General Management",intake:"Oct 2025",tuition:"€16,200",duration:"12 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
 {uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA General Management",intake:"Oct 2025",tuition:"€15,800",duration:"18 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Healthcare Management",intake:"Oct 2025",tuition:"€15,800",duration:"18 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
 {uni:"SRH University",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Applied Data Science and Artificial Intelligence",intake:"Oct 2025",tuition:"€11,900–€13,500",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Applied Computer Science",intake:"Oct 2025",tuition:"€11,500–€13,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Computer Science – Cyber Security",intake:"Oct 2025",tuition:"€11,500–€13,900",duration:"18–24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Computer Science – Big Data and Artificial Intelligence",intake:"Oct 2025",tuition:"€11,500–€13,900",duration:"18–24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Artificial Intelligence (AI) in Business",intake:"Oct 2025",tuition:"€13,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Digital Transformation Management",intake:"Oct 2025",tuition:"€11,500",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Health Sciences",program:"MSc Data Science: Digital Health",intake:"Oct 2025",tuition:"€10,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Health Sciences",program:"MSc Data Science – Business Analytics",intake:"Oct 2025",tuition:"€10,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Engineering & Technology",program:"MEng Engineering and Sustainable Technology Management",intake:"Oct 2025",tuition:"€13,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Engineering & Technology",program:"MEng Information Technology",intake:"Oct 2025",tuition:"€13,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Engineering & Technology",program:"MEng Engineering and International Business – Renewable Energy",intake:"Oct 2025",tuition:"€13,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Supply Chain Management",intake:"Oct 2025",tuition:"€10,200–€13,600",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Hospitality, Tourism & Culinary Arts",program:"MA Hospitality Management and Leadership",intake:"Oct 2025",tuition:"€11,500",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Architecture – Design for the Built Environment",intake:"Oct 2025",tuition:"€11,500",duration:"18 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Architecture",intake:"Oct 2025",tuition:"€11,000",duration:"18 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA International Management – Creative Leadership",intake:"Oct 2025",tuition:"€13,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA International Management",intake:"Oct 2025",tuition:"€13,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Social Design and Sustainable Innovation",intake:"Oct 2025",tuition:"€11,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Strategic Design",intake:"Oct 2025",tuition:"€11,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Film, Television and Digital Narratives",intake:"Oct 2025",tuition:"€11,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Photography",intake:"Oct 2025",tuition:"€11,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Health Sciences",program:"MA Dance Movement Therapy",intake:"Oct 2025",tuition:"€10,900",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Sustainability and Circular Economy Management",intake:"Oct 2025",tuition:"€10,200",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-{uni:"SRH University",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Applied Cybersecurity (Erasmus Mundus)",intake:"Oct 2025",tuition:"€5,175",duration:"24 months",english:"IELTS 6.5 / TOEFL 87 / PTE 59 / DET 110"},
-
-// ── GERMANY – Karlshochschule ──
-{uni:"Karlshochschule International University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA Creativity and Management",intake:"Sep 2025",tuition:"€750/month",duration:"36 months",english:"IELTS 6.5 / TOEFL 100"},
-{uni:"Karlshochschule International University",country:"Germany",level:"Undergraduate",field:"Sciences",program:"BA Business Psychology",intake:"Sep 2025",tuition:"€750/month",duration:"36 months",english:"IELTS 6.5 / TOEFL 100"},
-{uni:"Karlshochschule International University",country:"Germany",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"BA International Relations",intake:"Sep 2025",tuition:"€750/month",duration:"36 months",english:"IELTS 6.5 / TOEFL 100"},
-{uni:"Karlshochschule International University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Business",intake:"Sep 2025",tuition:"€750/month",duration:"36 months",english:"IELTS 6.5 / TOEFL 100"},
-{uni:"Karlshochschule International University",country:"Germany",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"BA Politics, Philosophy and Economics",intake:"Sep 2025",tuition:"€750/month",duration:"36 months",english:"IELTS 6.5 / TOEFL 100"},
-{uni:"Karlshochschule International University",country:"Germany",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"BA Politics",intake:"Sep 2025",tuition:"€750/month",duration:"36 months",english:"IELTS 6.5 / TOEFL 100"},
-{uni:"Karlshochschule International University",country:"Germany",level:"Postgraduate",field:"Law, Politics & Social Sciences",program:"MA Social Transformation",intake:"Sep 2025",tuition:"€750/month",duration:"24 months",english:"IELTS 6.5 / TOEFL 100"},
-{uni:"Karlshochschule International University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Management",intake:"Sep 2025",tuition:"€750/month",duration:"24 months",english:"IELTS 6.5 / TOEFL 100"},
-
-// ── GERMANY – Macromedia University ──
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA Business Management",intake:"Mar 2026",tuition:"€11,000",duration:"36 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Digital Technologies and Coding – Artificial Intelligence",intake:"Mar 2026",tuition:"€11,000",duration:"36 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BA Media and Communication Management",intake:"Mar 2026",tuition:"€11,000",duration:"36 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"Creative Arts, Design & Media",program:"BSc UI/UX Design",intake:"Mar 2026",tuition:"€11,000",duration:"36 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Brand Management",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Media and Communication Management",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Business Management",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Data Analytics",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Design Management",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Creative Arts, Design & Media",program:"MA Digital Media Business",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Strategic Marketing",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Macromedia University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Marketing",intake:"Mar 2026",tuition:"€13,680",duration:"18–24 months",english:"IELTS 6.0 / TOEFL 80"},
-
-// ── GERMANY – IU International University ──
 {uni:"IU International University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA International Management",intake:"Oct 2025",tuition:"€5,021",duration:"36 months",english:"IELTS 6.5 / TOEFL 90"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA Business Administration",intake:"Oct 2025",tuition:"€5,021",duration:"36 months",english:"IELTS 6.5 / TOEFL 90"},
 {uni:"IU International University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Computer Science",intake:"Oct 2025",tuition:"€5,021",duration:"36 months",english:"IELTS 6.5 / TOEFL 90"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Cyber Security",intake:"Oct 2025",tuition:"€5,021",duration:"36 months",english:"IELTS 6.5 / TOEFL 90"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Applied Artificial Intelligence",intake:"Oct 2025",tuition:"€5,021",duration:"36 months",english:"IELTS 6.5 / TOEFL 90"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"Engineering & Technology",program:"BE Industrial Engineering & Management",intake:"Oct 2025",tuition:"€5,021",duration:"36 months",english:"IELTS 6.5 / TOEFL 90"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Business and IT",intake:"Oct 2025",tuition:"€5,021",duration:"36 months",english:"IELTS 6.5 / TOEFL 90"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Engineering & Technology",program:"MEng Engineering Management",intake:"Oct 2025",tuition:"€7,072",duration:"12 months",english:"IELTS 6.5 / TOEFL 95"},
 {uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Artificial Intelligence",intake:"Oct 2025",tuition:"€7,072",duration:"24 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA International Management (120 ECTS)",intake:"Oct 2025",tuition:"€7,072",duration:"24 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Computer Science",intake:"Oct 2025",tuition:"€7,072",duration:"24 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Data Science (120 ECTS)",intake:"Oct 2025",tuition:"€7,072",duration:"24 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA International Marketing",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Engineering Management",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Artificial Intelligence",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA IT Management",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Cyber Security",intake:"Oct 2025",tuition:"€7,072",duration:"24 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Healthcare Management",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
 {uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA (90 ECTS)",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Salesforce & Sales Management",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Innovation & Entrepreneurship",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Human Resource Management",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"Master of Management",intake:"Oct 2025",tuition:"€10,099",duration:"12 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Finance & Accounting",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA E-Sports Management",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA Big Data Management",intake:"Oct 2025",tuition:"€9,593",duration:"18 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA International Management (60 ECTS)",intake:"Oct 2025",tuition:"€7,072",duration:"12 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Data Science (60 ECTS)",intake:"Oct 2025",tuition:"€7,072",duration:"12 months",english:"IELTS 6.5 / TOEFL 95"},
-{uni:"IU International University of Applied Sciences",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA (60 ECTS)",intake:"Oct 2025",tuition:"€10,099",duration:"12 months",english:"IELTS 6.5 / TOEFL 95"},
-
-// ── GERMANY – EBS Universität ──
 {uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA",intake:"Aug 2026",tuition:"€25,580",duration:"12 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Management – Practice Semester",intake:"Aug 2026",tuition:"€15,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Management – Semester Abroad",intake:"Aug 2026",tuition:"€15,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Management – Accelerated",intake:"Aug 2026",tuition:"€23,850",duration:"12 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
 {uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Finance – Practice Semester",intake:"Aug 2026",tuition:"€17,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Finance – Semester Abroad",intake:"Aug 2026",tuition:"€17,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Finance – Accelerated",intake:"Aug 2026",tuition:"€27,000",duration:"12 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Business Analytics – Practice Semester",intake:"Aug 2026",tuition:"€15,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Business Analytics – Semester Abroad",intake:"Aug 2026",tuition:"€15,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Business Analytics – Accelerated",intake:"Aug 2026",tuition:"€23,850",duration:"12 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Marketing – Practice Semester",intake:"Aug 2026",tuition:"€15,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Marketing – Semester Abroad",intake:"Aug 2026",tuition:"€15,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Marketing – Accelerated",intake:"Aug 2026",tuition:"€23,850",duration:"12 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Real Estate – Practice Semester",intake:"Aug 2026",tuition:"€15,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Real Estate – Semester Abroad",intake:"Aug 2026",tuition:"€15,900",duration:"24 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-{uni:"EBS Universität",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Real Estate – Accelerated",intake:"Aug 2026",tuition:"€23,850",duration:"12 months",english:"IELTS 7.0 / TOEFL 95 / DET 125"},
-
-// ── GERMANY – Schiller International University Heidelberg ──
 {uni:"Schiller International University",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BSc International Business",intake:"Sep 2026",tuition:"€15,400",duration:"40 months",english:"IELTS 6.0 / TOEFL 80 / DET 95"},
-{uni:"Schiller International University",country:"Germany",level:"Undergraduate",field:"Law, Politics & Social Sciences",program:"BA International Relations and Diplomacy",intake:"Sep 2026",tuition:"€15,400",duration:"40 months",english:"IELTS 6.0 / TOEFL 80 / DET 95"},
-{uni:"Schiller International University",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Computer Science",intake:"Sep 2026 / Jan 2027",tuition:"€15,400",duration:"40 months",english:"IELTS 6.0 / TOEFL 80 / DET 95"},
-{uni:"Schiller International University",country:"Germany",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Business Analytics",intake:"Sep 2026",tuition:"€15,400",duration:"40 months",english:"IELTS 6.0 / TOEFL 80 / DET 95"},
-{uni:"Schiller International University",country:"Germany",level:"Undergraduate",field:"Hospitality, Tourism & Culinary Arts",program:"BSc Hospitality and Tourism Management",intake:"Jan 2027",tuition:"€15,400",duration:"40 months",english:"IELTS 6.0 / TOEFL 80 / DET 95"},
 {uni:"Schiller International University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA",intake:"Jun 2026 / Oct 2026",tuition:"€19,560",duration:"12 months",english:"IELTS 6.5 / TOEFL 89 / DET 105"},
-{uni:"Schiller International University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA International Business",intake:"Jun 2026 / Oct 2026",tuition:"€24,450",duration:"15 months",english:"IELTS 6.5 / TOEFL 89 / DET 105"},
-{uni:"Schiller International University",country:"Germany",level:"Postgraduate",field:"Law, Politics & Social Sciences",program:"MA International Relations and Diplomacy",intake:"Oct 2026",tuition:"€19,560",duration:"12 months",english:"IELTS 6.5 / TOEFL 89 / DET 105"},
-{uni:"Schiller International University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Global Finance",intake:"Feb 2027",tuition:"€16,500",duration:"12 months",english:"IELTS 6.5 / TOEFL 89 / DET 105"},
-{uni:"Schiller International University",country:"Germany",level:"Postgraduate",field:"Sciences",program:"MSc Sustainability Management (UNITAR)",intake:"Feb 2027",tuition:"€16,500",duration:"12 months",english:"IELTS 6.5 / TOEFL 89 / DET 105"},
-{uni:"Schiller International University",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MSc Digital Marketing and E-commerce",intake:"Feb 2027",tuition:"€16,500",duration:"12 months",english:"IELTS 6.5 / TOEFL 89 / DET 105"},
-
-// ── GERMANY – IB University ──
-{uni:"IB University of Applied Sciences for Health & Social Sciences",country:"Germany",level:"Postgraduate",field:"Health Sciences",program:"MSc Digital Health",intake:"Contact RACE",tuition:"€17,476 (after scholarship)",duration:"18 months",english:"Contact RACE"},
-{uni:"IB University of Applied Sciences for Health & Social Sciences",country:"Germany",level:"Postgraduate",field:"Health Sciences",program:"MA Health Care Education and Educational Management",intake:"Contact RACE",tuition:"€23,002 (after scholarship)",duration:"24 months",english:"Contact RACE"},
-{uni:"IB University of Applied Sciences for Health & Social Sciences",country:"Germany",level:"Postgraduate",field:"Health Sciences",program:"MSc Organizational Psychology",intake:"Contact RACE",tuition:"€23,002 (after scholarship)",duration:"24 months",english:"Contact RACE"},
-{uni:"IB University of Applied Sciences for Health & Social Sciences",country:"Germany",level:"Postgraduate",field:"Health Sciences",program:"MSc Physiotherapy",intake:"Contact RACE",tuition:"€23,002 (after scholarship)",duration:"24 months",english:"Contact RACE"},
-
-// ── GERMANY – HDWM ──
-{uni:"Hochschule der Wirtschaft für Management (HDWM)",country:"Germany",level:"Undergraduate",field:"Business & Management",program:"BA Management in International Business",intake:"Contact RACE",tuition:"€27,754 (total)",duration:"36 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Hochschule der Wirtschaft für Management (HDWM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MBA International Business",intake:"Contact RACE",tuition:"€15,250 (total)",duration:"12 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Hochschule der Wirtschaft für Management (HDWM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Business Management",intake:"Contact RACE",tuition:"€16,162 (total)",duration:"18 months",english:"IELTS 6.0 / TOEFL 80"},
-{uni:"Hochschule der Wirtschaft für Management (HDWM)",country:"Germany",level:"Postgraduate",field:"Business & Management",program:"MA Business Management & Digital Leadership",intake:"Contact RACE",tuition:"Contact RACE",duration:"24 months",english:"IELTS 6.0 / TOEFL 80"},
-
-// ── HUNGARY – International Business School (IBS) Vienna/Budapest ──
 {uni:"International Business School (IBS)",country:"Hungary",level:"Postgraduate",field:"Business & Management",program:"MSc International Management",intake:"Feb 2026 / Sep 2026",tuition:"€12,800",duration:"18 months",english:"IELTS 6.5 / TOEFL 79 / DET 120"},
-{uni:"International Business School (IBS)",country:"Hungary",level:"Postgraduate",field:"Business & Management",program:"MSc Strategic International Management with Finance",intake:"Feb 2026 / Sep 2026",tuition:"€12,800",duration:"18 months",english:"IELTS 6.5 / TOEFL 79 / DET 120"},
-{uni:"International Business School (IBS)",country:"Hungary",level:"Postgraduate",field:"Business & Management",program:"MSc Strategic International Management with Marketing",intake:"Sep 2026",tuition:"€12,800",duration:"18 months",english:"IELTS 6.5 / TOEFL 79 / DET 120"},
 {uni:"International Business School (IBS)",country:"Hungary",level:"Postgraduate",field:"IT & Computer Science",program:"MSc Strategic International Management with AI and Cybersecurity",intake:"Feb 2026 / Sep 2026",tuition:"€12,800",duration:"18 months",english:"IELTS 6.5 / TOEFL 79 / DET 120"},
-{uni:"International Business School (IBS)",country:"Hungary",level:"Postgraduate",field:"IT & Computer Science",program:"MSc IT for Business – Data Analytics",intake:"Feb 2026 / Sep 2026",tuition:"€12,800",duration:"18 months",english:"IELTS 6.5 / TOEFL 79 / DET 120"},
-{uni:"International Business School (IBS)",country:"Hungary",level:"Postgraduate",field:"Business & Management",program:"MBA Strategic Data Driven Management",intake:"Sep 2026",tuition:"€12,800",duration:"18 months",english:"Contact RACE"},
-
-// ── CZECH REPUBLIC – Newton University ──
 {uni:"Newton University",country:"Czech Republic",level:"Undergraduate",field:"Business & Management",program:"BA Global Business and Management",intake:"Contact RACE",tuition:"€5,200",duration:"36 months",english:"IELTS 5.5–6.5 / TOEFL 72–94 / PTE 42–58"},
-{uni:"Newton University",country:"Czech Republic",level:"Postgraduate",field:"Business & Management",program:"MSc Economics and Sustainable Management",intake:"Contact RACE",tuition:"€3,200",duration:"24 months",english:"Contact RACE"},
 {uni:"Newton University",country:"Czech Republic",level:"Postgraduate",field:"Business & Management",program:"MBA – Managing a Successful Business",intake:"Contact RACE",tuition:"€3,200",duration:"24 months",english:"Contact RACE"},
-{uni:"Newton University",country:"Czech Republic",level:"Postgraduate",field:"Business & Management",program:"MBA – Marketing",intake:"Contact RACE",tuition:"€3,200",duration:"24 months",english:"Contact RACE"},
-{uni:"Newton University",country:"Czech Republic",level:"Postgraduate",field:"Business & Management",program:"MBA – Strategy and Innovation in Business",intake:"Contact RACE",tuition:"€3,200",duration:"24 months",english:"Contact RACE"},
-{uni:"Newton University",country:"Czech Republic",level:"Postgraduate",field:"Business & Management",program:"MBA – AI in Business",intake:"Contact RACE",tuition:"€3,200",duration:"24 months",english:"Contact RACE"},
-{uni:"Newton University",country:"Czech Republic",level:"Postgraduate",field:"Sciences",program:"MSc Mental Coaching in Sports and Business",intake:"Contact RACE",tuition:"€3,200",duration:"24 months",english:"Contact RACE"},
-{uni:"Newton University",country:"Czech Republic",level:"Postgraduate",field:"Sciences",program:"MSc Psychology in Management",intake:"Contact RACE",tuition:"€3,200",duration:"24 months",english:"Contact RACE"},
-
-// ── ESTONIA – EUAS ──
 {uni:"Estonian Entrepreneurship University of Applied Sciences (EUAS)",country:"Estonia",level:"Undergraduate",field:"Business & Management",program:"BA Creativity and Business Innovation",intake:"Contact RACE",tuition:"€8,380",duration:"36 months",english:"IELTS 5.5 / TOEFL 72 / PTE 46"},
 {uni:"Estonian Entrepreneurship University of Applied Sciences (EUAS)",country:"Estonia",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Game Design and Development",intake:"Contact RACE",tuition:"€8,380",duration:"36 months",english:"IELTS 5.5 / TOEFL 72 / PTE 46"},
-{uni:"Estonian Entrepreneurship University of Applied Sciences (EUAS)",country:"Estonia",level:"Undergraduate",field:"IT & Computer Science",program:"BSc Software Development and Entrepreneurship",intake:"Contact RACE",tuition:"€8,380",duration:"36 months",english:"IELTS 5.5 / TOEFL 72 / PTE 46"},
 {uni:"Estonian Entrepreneurship University of Applied Sciences (EUAS)",country:"Estonia",level:"Postgraduate",field:"Business & Management",program:"MBA International Business Administration",intake:"Contact RACE",tuition:"€8,740",duration:"24 months",english:"IELTS 6.0 / TOEFL 80 / PTE 53"}
 ];
 
@@ -907,18 +462,34 @@ const ALL_FIELDS = [
   "Law, Politics & Social Sciences","Sciences"
 ];
 
-const APPLY_URL = "https://cmst.xyz/form/7e8a525a-8729-4d95-8938-5ee4355d29ec/general-inquiry-forms";
+const CARDS_PER_PAGE = 16;
+let filteredData = [];
+let currentPage  = 1;
+
+function parseScores(english) {
+  const result = { ielts:'---', toefl:'---', pte:'---', det:'---' };
+  if (!english || english === 'Contact RACE') return result;
+  const ieltsM = english.match(/IELTS\s*([\d.–-]+)/i);
+  const toeflM = english.match(/TOEFL\s*(\d+)/i);
+  const pteM   = english.match(/PTE\s*(\d+)/i);
+  const detM   = english.match(/DET\s*(\d+)/i);
+  if (ieltsM) result.ielts = ieltsM[1];
+  if (toeflM) result.toefl = toeflM[1];
+  if (pteM)   result.pte   = pteM[1];
+  if (detM)   result.det   = detM[1];
+  return result;
+}
 
 function syncFilters() {
   const country = document.getElementById('country').value;
-  const level = document.getElementById('level').value;
+  const level   = document.getElementById('level').value;
   const fieldEl = document.getElementById('field');
-  const prev = fieldEl.value;
+  const prev    = fieldEl.value;
   const available = new Set();
   DB.forEach(r => {
     if ((!country || r.country === country) && (!level || r.level === level)) available.add(r.field);
   });
-  fieldEl.innerHTML = '<option value="">— All Fields —</option>';
+  fieldEl.innerHTML = '<option value="">Field of Study</option>';
   ALL_FIELDS.forEach(f => {
     if (available.has(f)) {
       const o = document.createElement('option');
@@ -929,110 +500,97 @@ function syncFilters() {
   });
 }
 
+function buildCard(r) {
+  const firstIntake = r.intake ? r.intake.split('/')[0].trim() : 'TBC';
+  const s = parseScores(r.english);
+  return `
+    <div class="prog-card">
+      <div class="card-header">
+        <div class="card-uni-name">${r.uni}</div>
+        <div class="card-program-name">${r.program}</div>
+        <div class="card-country">${r.country}</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-item">
+          <span class="card-meta-label">Intake</span>
+          <span class="card-meta-value">${firstIntake}</span>
+        </div>
+        <div class="card-meta-item">
+          <span class="card-meta-label">⏱ Duration</span>
+          <span class="card-meta-value">${r.duration || '—'}</span>
+        </div>
+        <div class="card-meta-item">
+          <span class="card-meta-label">Min. GPA</span>
+          <span class="card-meta-value">—</span>
+        </div>
+      </div>
+      <div class="card-fees">
+        <div class="card-fee-block">
+          <span class="card-fee-label">🔥 Tuition</span>
+          <span class="card-fee-value">${r.tuition && r.tuition !== 'Contact RACE' ? r.tuition : '<span style="font-size:0.75rem;color:var(--muted)">Contact RACE</span>'}</span>
+        </div>
+        <div class="card-fee-block right">
+          <span class="card-fee-label">📋 Application</span>
+          <span class="card-fee-value">—</span>
+        </div>
+      </div>
+      <div class="card-scores">
+        <div class="card-scores-heading">📋 Test Scores</div>
+        <div class="scores-grid">
+          <div class="score-chip"><span class="score-val">${s.ielts}</span><span class="score-label">IELTS</span></div>
+          <div class="score-chip"><span class="score-val">${s.toefl}</span><span class="score-label">TOEFL</span></div>
+          <div class="score-chip"><span class="score-val">${s.pte}</span><span class="score-label">PTE</span></div>
+          <div class="score-chip"><span class="score-val">${s.det}</span><span class="score-label">Duo</span></div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderPage() {
+  const body  = document.getElementById('results-body');
+  const start = (currentPage - 1) * CARDS_PER_PAGE;
+  body.innerHTML = filteredData.slice(start, start + CARDS_PER_PAGE).map(buildCard).join('');
+
+  const totalPages = Math.max(1, Math.ceil(filteredData.length / CARDS_PER_PAGE));
+  document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
+  document.getElementById('prev-btn').disabled = currentPage === 1;
+  document.getElementById('next-btn').disabled = currentPage >= totalPages;
+}
+
 function runSearch() {
   const country = document.getElementById('country').value;
   const level   = document.getElementById('level').value;
   const field   = document.getElementById('field').value;
 
-  const matches = DB.filter(r =>
+  filteredData = DB.filter(r =>
     (!country || r.country === country) &&
     (!level   || r.level   === level)   &&
     (!field   || r.field   === field)
   );
+  currentPage = 1;
 
   const section = document.getElementById('results-section');
-  const body    = document.getElementById('results-body');
   const summary = document.getElementById('result-summary');
+  const pagination = document.getElementById('pagination-controls');
 
   section.style.display = 'block';
+  summary.textContent = filteredData.length + ' program' + (filteredData.length !== 1 ? 's' : '') + ' found';
+  pagination.style.display = filteredData.length > CARDS_PER_PAGE ? 'flex' : 'none';
 
-  if (matches.length === 0) {
-    summary.textContent = '0 programs found';
-    body.innerHTML = '<p style="opacity:0.5;text-align:center;padding:50px;">No results found. Please contact RACE counselors for this selection.</p>';
-    section.scrollIntoView({behavior:'smooth'});
-    return;
+  if (filteredData.length === 0) {
+    document.getElementById('results-body').innerHTML =
+      '<p style="opacity:0.5;text-align:center;padding:50px;grid-column:1/-1;">No results found. Please contact RACE counselors for this selection.</p>';
+  } else {
+    renderPage();
   }
 
-  const uniOrder = [];
-  const uniMap = {};
-
-  matches.forEach(r => {
-    const key = r.uni + '||' + r.country;
-    if (!uniMap[key]) {
-      uniMap[key] = { uni: r.uni, country: r.country, byLevel: {} };
-      uniOrder.push(key);
-    }
-    if (!uniMap[key].byLevel[r.level]) uniMap[key].byLevel[r.level] = { byField: {} };
-    if (!uniMap[key].byLevel[r.level].byField[r.field]) uniMap[key].byLevel[r.level].byField[r.field] = [];
-    uniMap[key].byLevel[r.level].byField[r.field].push(r);
-  });
-
-  const totalPrograms = matches.length;
-  summary.textContent = uniOrder.length + ' institution' + (uniOrder.length !== 1 ? 's' : '') +
-    ' · ' + totalPrograms + ' program' + (totalPrograms !== 1 ? 's' : '') + ' found';
-
-  const LEVEL_ORDER = ['Undergraduate','Postgraduate'];
-
-  body.innerHTML = uniOrder.map(key => {
-    const e = uniMap[key];
-    const totalCount = matches.filter(r => r.uni === e.uni && r.country === e.country).length;
-
-    const allIntakes = [...new Set(
-      Object.values(e.byLevel).flatMap(lv => Object.values(lv.byField).flat().map(r => r.intake)).filter(Boolean)
-    )];
-    const intakeLabel = allIntakes.length === 1 ? allIntakes[0] : 'Multiple intakes';
-
-    const levelsPresent = LEVEL_ORDER.filter(lv => e.byLevel[lv]);
-    const showLevelHeadings = levelsPresent.length > 1 || !level;
-
-    let innerHtml = '';
-    levelsPresent.forEach(lv => {
-      if (showLevelHeadings) {
-        innerHtml += `<div class="level-heading">${lv}</div>`;
-      }
-      const byField = e.byLevel[lv].byField;
-      const fields = Object.keys(byField);
-      const showFieldHeadings = fields.length > 1 || !field;
-
-      fields.forEach(f => {
-        if (showFieldHeadings) {
-          innerHtml += `<div class="field-heading">${f}</div>`;
-        }
-        innerHtml += '<div class="prog-grid">';
-        byField[f].forEach(r => {
-          const firstIntake = r.intake ? r.intake.split('/')[0].trim() : 'TBC';
-          const pills = [
-            r.tuition  ? `<span class="pill pill-blue">${r.tuition}</span>` : '',
-            r.duration ? `<span class="pill pill-gray">${r.duration}</span>` : '',
-            r.english  ? `<span class="pill pill-green">${r.english}</span>` : ''
-          ].filter(Boolean).join('');
-
-          innerHtml += `
-            <div class="prog-card">
-              <div class="prog-intake-badge">${firstIntake}</div>
-              <div class="prog-name">${r.program}</div>
-              ${pills ? `<div class="prog-meta-row">${pills}</div>` : ''}
-              <a class="apply-btn" href="${APPLY_URL}" target="_blank" rel="noopener">Apply ${firstIntake} &rarr;</a>
-            </div>`;
-        });
-        innerHtml += '</div>';
-      });
-    });
-
-    return `
-      <div class="uni-section">
-        <div class="uni-section-header">
-          <div>
-            <div class="uni-section-name">${e.uni}</div>
-            <div class="uni-section-meta">${e.country} &nbsp;·&nbsp; ${totalCount} program${totalCount!==1?'s':''}</div>
-          </div>
-          <div class="uni-section-badge">${intakeLabel}</div>
-        </div>
-        <div class="uni-section-body">${innerHtml}</div>
-      </div>`;
-  }).join('');
-
   section.scrollIntoView({behavior:'smooth'});
+}
+
+function changePage(step) {
+  currentPage += step;
+  renderPage();
+  document.getElementById('results-section').scrollIntoView({behavior:'smooth'});
 }
 
 syncFilters();
